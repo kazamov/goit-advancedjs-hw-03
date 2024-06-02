@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,16 +8,24 @@
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
-    <load ="partials/header.html" />
+    <template id="cat-info-template">
+      <img class="cat-image" src="[CAT_IMAGE_SRC]" alt="[CAT_IMAGE_ALT]" />
+      <h2 class="cat-name">[CAT_NAME]</h2>
+      <p class="cat-description">[CAT_DESCRIPTION]</p>
+      <p class="cat-temperament"><strong>Temperament:</strong>[TEMPERAMENT]</p>
+    </template>
 
-    <section>
-      <h1>Example page title</h1>
-      <!-- Path to images as from index.html file -->
-      <img src="./img/javascript.svg" alt="" />
-    </section>
+    <h1>Cats</h1>
 
-    <!-- Loads the specified .html file -->
-    <load ="partials/vite-promo.html" />
+    <select id="cat-breeds" class="invisible"></select>
+
+    <div id="cat-info" class="invisible"></div>
+
+    <p id="loader" class="invisible">Loading data, please wait</p>
+
+    <p id="error" class="invisible">
+      Something went wrong, try to visit a page later
+    </p>
 
     <script type="module" src="./main.js"></script>
   </body>
