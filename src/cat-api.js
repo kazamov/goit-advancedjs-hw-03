@@ -1,5 +1,5 @@
 const API_URL = 'https://api.thecatapi.com/v1';
-const API_KEY = import.meta.env.CAT_API_KEY;
+const API_KEY = import.meta.env.VITE_CAT_API_KEY;
 
 export async function fetchBreeds() {
   try {
