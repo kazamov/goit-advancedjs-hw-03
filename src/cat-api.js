@@ -10,6 +10,11 @@ export async function fetchBreeds() {
       },
       redirect: 'follow',
     });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch cat breeds');
+    }
+
     const data = await response.json();
     return data;
   } catch (error) {
@@ -29,6 +34,11 @@ export async function fetchCatByBreed(breedId) {
         redirect: 'follow',
       }
     );
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch cat by breed');
+    }
+
     const data = await response.json();
     return data;
   } catch (error) {

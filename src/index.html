@@ -4,7 +4,13 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vanilla App Template</title>
+    <title>Cats</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
@@ -12,20 +18,19 @@
       <img class="cat-image" src="[CAT_IMAGE_SRC]" alt="[CAT_IMAGE_ALT]" />
       <h2 class="cat-name">[CAT_NAME]</h2>
       <p class="cat-description">[CAT_DESCRIPTION]</p>
-      <p class="cat-temperament"><strong>Temperament:</strong>[TEMPERAMENT]</p>
+      <p class="cat-temperament">
+        <strong class="cat-temperament-prefix">Temperament:</strong
+        >[TEMPERAMENT]
+      </p>
     </template>
 
-    <h1>Cats</h1>
+    <h1 class="title">Cats</h1>
 
-    <select id="cat-breeds" class="invisible"></select>
+    <select class="cat-breeds invisible"></select>
 
-    <div id="cat-info" class="invisible"></div>
+    <div class="cat-info invisible"></div>
 
-    <p id="loader" class="invisible">Loading data, please wait</p>
-
-    <p id="error" class="invisible">
-      Something went wrong, try to visit a page later
-    </p>
+    <p class="loader invisible"></p>
 
     <script type="module" src="./main.js"></script>
   </body>

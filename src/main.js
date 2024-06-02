@@ -1,15 +1,16 @@
+import SlimSelect from 'slim-select';
+import 'slim-select/styles';
+
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
+
 import { fetchBreeds, fetchCatByBreed } from './cat-api';
 
-const loaderElement = document.getElementById('loader');
-const errorElement = document.getElementById('error');
-const catsSelect = document.getElementById('cat-breeds');
+const loaderElement = document.querySelector('.loader');
+const catsSelect = document.querySelector('.cat-breeds');
 const catInfoTemplate = document.getElementById('cat-info-template');
-const catInfoContainer = document.getElementById('cat-info');
+const catInfoContainer = document.querySelector('.cat-info');
 let cats = null;
-
-function toggleElementVisibility(element) {
-  element.classList.toggle('invisible');
-}
 
 function hideElement(element) {
   if (!element.classList.contains('invisible')) {
@@ -51,23 +52,31 @@ function renderCatInfo(catInfo, catImageInfo) {
   showElement(catInfoContainer);
 }
 
-async function onCatSelected(event) {
-  const breedId = event.target.value;
+async function onCatSelected(options) {
+  const breedId = options[0].value;
   const catInfo = cats.find(cat => cat.id === breedId);
   let catImageInfo = null;
 
+  if (!catInfo) {
+    hideElement(catInfoContainer);
+    return;
+  }
+
   try {
-    toggleElementVisibility(loaderElement);
+    showElement(loaderElement);
     hideElement(catInfoContainer);
 
     catImageInfo = await fetchCatByBreed(breedId);
   } catch (error) {
-    toggleElementVisibility(errorElement);
+    iziToast.error({
+      title: 'Error',
+      message: 'Failed to fetch cat by breed',
+    });
   } finally {
-    toggleElementVisibility(loaderElement);
+    hideElement(loaderElement);
   }
 
-  if (!catInfo || !catImageInfo) {
+  if (!catImageInfo) {
     return;
   }
 
@@ -76,12 +85,16 @@ async function onCatSelected(event) {
 
 (async () => {
   try {
-    toggleElementVisibility(loaderElement);
+    showElement(loaderElement);
     cats = await fetchBreeds();
   } catch (error) {
-    toggleElementVisibility(errorElement);
+    iziToast.error({
+      title: 'Error',
+      message: 'Failed to fetch cat breeds',
+      position: 'topCenter',
+    });
   } finally {
-    toggleElementVisibility(loaderElement);
+    hideElement(loaderElement);
   }
 
   if (!cats) {
@@ -92,7 +105,16 @@ async function onCatSelected(event) {
     cats.map(cat => `<option value="${cat.id}">${cat.name}</option>`)
   );
   catsSelect.innerHTML = catsOptions.join('');
-  catsSelect.onchange = onCatSelected;
 
-  toggleElementVisibility(catsSelect);
+  new SlimSelect({
+    select: '.cat-breeds',
+    settings: {
+      allowDeselect: true,
+    },
+    events: {
+      afterChange: onCatSelected,
+    },
+  });
+
+  showElement(catsSelect);
 })();
