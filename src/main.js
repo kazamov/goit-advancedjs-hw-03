@@ -71,6 +71,7 @@ async function onCatSelected(options) {
     iziToast.error({
       title: 'Error',
       message: 'Failed to fetch cat by breed',
+      position: 'topCenter',
     });
   } finally {
     hideElement(loaderElement);
@@ -80,7 +81,7 @@ async function onCatSelected(options) {
     return;
   }
 
-  renderCatInfo(catInfo, catImageInfo[0]);
+  renderCatInfo(catInfo, catImageInfo);
 }
 
 (async () => {

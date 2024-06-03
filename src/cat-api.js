@@ -40,7 +40,12 @@ export async function fetchCatByBreed(breedId) {
     }
 
     const data = await response.json();
-    return data;
+
+    if (data.length === 0) {
+      throw new Error('No cat found by breed');
+    }
+
+    return data[0];
   } catch (error) {
     throw new Error('Failed to fetch cat by breed');
   }
